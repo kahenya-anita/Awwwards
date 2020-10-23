@@ -29,3 +29,8 @@ def email(request):
     name = current_user.username
     send_signup_email(name, email)
     return redirect(create_profile)
+
+@login_required(login_url='/accounts/login/')
+def profile(request, profile_id):
+    title = "aWWWards"
+    return render(request, "user/profile.html" {"profile": profile})
