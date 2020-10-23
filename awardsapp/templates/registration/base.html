@@ -1,0 +1,30 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title>Awwwards</title>
+    {% endif %}
+  {% block styles %}
+  {% bootstrap_css %}
+  <link rel="favicon icon" href="{% static 'favicon.ico'%}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% endblock %}
+</head>
+<body>
+    {% block content %}  {%endblock%}
+    {% block scripts %}
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'app.js' %}"></script>
+    {% endblock %} 
+</body>
+</html>
