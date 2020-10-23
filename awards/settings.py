@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'awardsapp',
     'rest_framework',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
