@@ -7,6 +7,10 @@ from django.shortcuts import render,redirect
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .forms import CreateProfileForm
+import datetime as dt
+import statistics
+from django.contrib.auth.models import User
+from .models import Profile, Project, Vote
 
 def create_profile(request):
     current_user = request.user
