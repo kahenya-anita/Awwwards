@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,11 +44,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'bootstrap4',
 ]
-
-Cloud name:	dsoltjf12
-API Key: 381748421442872
-API Secret:	9PTjvOSMcaa22_cCSlpx3m8sa0I
-
+cloudinary.config(
+    cloud_name = 'dsoltjf12',
+    api_key = '381748421442872',
+    api_secret = '9PTjvOSMcaa22_cCSlpx3m8sa0I',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -130,7 +131,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = "/accounts/login/"
-#LOGOUT_REDIRECT_URL = "/accounts/login/"
+LOGOUT_REDIRECT_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/"
 
 #EMAIL CONFIGURATIONS
