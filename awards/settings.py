@@ -44,6 +44,11 @@ INSTALLED_APPS = [
     'bootstrap4',
 ]
 
+Cloud name:	dsoltjf12
+API Key: 381748421442872
+API Secret:	9PTjvOSMcaa22_cCSlpx3m8sa0I
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
