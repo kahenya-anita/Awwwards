@@ -1,17 +1,61 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from .email import send_signup_email
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.shortcuts import render,redirect
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .forms import CreateProfileForm
+from .forms import CreateProfileForm, CreateUserForm
 import datetime as dt
 import statistics
 from django.contrib.auth.models import User
 from .models import Profile, Project, Vote
 from .forms import AddProjectForm, RateProjectForm, CreateProfileForm
+from .decorators import unauthenticated_user, allowed_users, admin_only
+
+
+@unauthenticated_user
+def registerPage(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+  
+              
+            messages.success(request, 'Account was successfully created for ' + username)
+            return redirect('login')
+
+    context = {'form':form}
+    return render(request , 'django_registration/registration_form.html', context)
+
+@unauthenticated_user
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request, 'Username or Password is incorrect for user - ' + username)
+
+
+    context = {}
+    return render(request, 'django_registration/registration_form.html', context)
+
+@login_required(login_url='login')
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
 
 def create_profile(request):
     current_user = request.user
@@ -52,10 +96,10 @@ def home(request):
 
 
 @login_required(login_url='/accounts/login/')
-def profile(request, profile_id):
+def profile(request, username):
     title = "aWWWards"
     try:
-        user = User.objects.get(pk = profile_id)
+        user = User.objects.get(User , username = username)
         profile = Profile.objects.get(user = user)
         title = profile.user.username
         projects = Project.get_user_projects(profile.id)
@@ -203,3 +247,19 @@ def search_project(request):
         message = "You haven't searched for any term"
         return render(request,'project/search.html', {"message": message, "title": title})
 
+def register(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()  # load the profile instance created by the signal
+            user.profile.job_title = form.cleaned_data.get('job_title')
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('create_profile')
+    else:
+        form = SignUpForm()
+    return render(request, 'django_registration/registration_form.html')
+   
