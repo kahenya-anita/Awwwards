@@ -1,1 +1,118 @@
+{%extends 'base.html'%}
+{% load bootstrap3 %}
+{% load static %}
 
+{% block styles %}
+{{ block.super}}
+<link rel="stylesheet" href="{% static 'css/project.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Card -->
+<div class="card card-cascade wider reverse">
+
+    <!-- Card image -->
+    <div class="view view-cascade overlay">
+      <img class="card-img-top" src="{{project.screenshot.url}}"
+        alt="Card image cap">
+      <a href="#!">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+  
+    <!-- Card content -->
+    <div class="card-body card-body-cascade text-center">
+  
+      <!-- Title -->
+      <h4 class="card-title"><strong>{{project.name}}</strong></h4>
+      <!-- Subtitle -->
+      <h6 class="font-weight-bold indigo-text py-2">By <a href="{% url 'profile' project.profile.user.id %}">{{project.profile.user.username}}</a></h6>
+      <!-- Text -->
+      <p class="card-text">{{project.description}}
+      </p>
+
+      {% if voted %}
+      {% else %}
+      <a href="#rate-form" onclick="openTab(event, 'Rate')">
+        <button type="button" class="btn purple-gradient"><i class="fas fa-heart pr-2" aria-hidden="true"></i>Rate Now</button>
+      </a>
+      {% endif %}
+  
+    </div>
+  
+  </div>
+  <!-- Card -->
+  <div class="d-flex">
+    <div class="container">
+        <span id="rateMe4"  class="feedback">{{project.average_score | floatformat:0}}Average</span>
+        <span id="rateMe4"  class="feedback">{{project.average_design}}Design</span>
+        <span id="rateMe4"  class="feedback">{{project.average_usability}}Usability</span>
+        <span id="rateMe4"  class="feedback">{{project.average_content}}Content</span>
+      </div>
+      
+      <!-- rating.js file -->
+      <script src="js/addons/rating.js"></script>
+  </div>
+
+  <!-- Classic tabs -->
+<div class="classic-tabs mx-2">
+
+    <ul class="nav tabs-transparent" id="myClassicTabShadow" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link waves-light" id="awesome-tab-classic-primary defaultOpen" data-toggle="tab" href="#awesome-classic-orange"
+              role="tab" aria-controls="awesome-classic-primary" aria-selected="false"><i class="fas fa-star fa-2x pb-2"
+                aria-hidden="true"></i><br>Votes</a>
+          </li>
+    </ul>
+  
+    <div class="tab-content card" id="myClassicTabContentShadow">
+      {% for vote in votes %}
+      <div class="tab-pane fade" id="awesome-classic-shadow" role="tabpanel" aria-labelledby="awesome-tab-classic-shadow">
+        <div id="Votes" class="tabcontent">
+            <div class="vote-titles">
+                <img src="" alt="voter" class="invisible">
+                <p class="voter-name"></p>
+                <p class="vote-title ">Content</p>
+                <p class="vote-title ">Design</p>
+                <p class="vote-title ">Usability</p>
+            </div>
+         <div class="vote-details">
+            <img src="{{vote.voter.profile_pic.url}}" alt="voter" class="voter-image">
+            <p class="voter-name">{{vote.voter.user.username}}</p>
+            <p class="content-vote">{{vote.content | floatformat:0}}</p>
+            <p class="design-vote">{{vote.design | floatformat:0}}</p>
+            <p class="usability-vote">{{vote.usability | floatformat:0}}</p>
+          </div>
+
+          {% else %}
+          <div class="text-center have-already">No votes yet</div>
+    
+         {% endfor %}
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  <!-- Classic tabs -->
+
+
+  <div id="Rate" class="tabcontent">
+    {% if voted %}
+    <div class="text-center have-already">You have already rated this project</div>
+    {% else %}
+    <div id="rate-form">
+        <div class="text-center">
+            <div class="title">Rate project</div>
+            <hr>
+            <div class="guide">Rate the project based on usability, content and design</div>
+        </div>
+        <form action="{%url 'rate_project' project_id=project.id%}" method="post">
+            {%csrf_token%}
+            {% bootstrap_form form%}
+            <input type="submit" class="btn purple-gradient" value="Rate Project">
+            <br>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
