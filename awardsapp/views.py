@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required #unauthenticated_user
 from django.contrib.auth.forms import UserCreationForm
 from .email import send_signup_email
 from django.contrib import messages
@@ -9,17 +9,16 @@ from django.urls import reverse
 from django.shortcuts import render,redirect
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .forms import CreateProfileForm, CreateUserForm
+from .forms import CreateProfileForm, SignUpForm
 import datetime as dt
 import statistics
 from django.contrib.auth.models import User
 from .models import Profile, Project, Vote
 from .forms import AddProjectForm, RateProjectForm, CreateProfileForm
-from .decorators import unauthenticated_user, allowed_users, admin_only
 
 
-@unauthenticated_user
-def registerPage(request):
+@login_required
+def register(request):
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -34,8 +33,8 @@ def registerPage(request):
     context = {'form':form}
     return render(request , 'django_registration/registration_form.html', context)
 
-@unauthenticated_user
-def loginPage(request):
+@login_required
+def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -44,7 +43,7 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('/')
+            return redirect('create_profile')
         else:
             messages.info(request, 'Username or Password is incorrect for user - ' + username)
 
