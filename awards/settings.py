@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'awardsapp',
+    'awardsapp.apps.AwardsappConfig',
     'rest_framework',
     'bootstrap4',
 ]
@@ -132,9 +132,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = "/accounts/login/"
-LOGOUT_REDIRECT_URL = "/accounts/login/"
-LOGIN_REDIRECT_URL = "/"
+# LOGIN_URL = "/accounts/login/"
+# LOGOUT_REDIRECT_URL = "/accounts/login/"
+# LOGIN_REDIRECT_URL = "/"
 
 #EMAIL CONFIGURATIONS
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
