@@ -1,0 +1,9 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load bootstrap4 %}
+{% block styles %}
+{{ block.super}}
+<link rel="stylesheet" href="{% static 'css/project.css' %}">
+{% endblock %}
+
+{% block content %}

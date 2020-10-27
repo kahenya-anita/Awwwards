@@ -1,162 +1,68 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Awwwwards!</title>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-  <!-- Google Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-  <!-- Bootstrap core CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Material Design Bootstrap -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css" rel="stylesheet">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- STYLES CSS -->
+        <link rel="stylesheet" href="/awardsapp/static/css/styles.css">
 
-<body class="hidden-sn grey-skin">
-
-    <!--Double navigation-->
-    <header>
-      <!-- Sidebar navigation -->
-      <div id="slide-out" class="side-nav sn-bg-4">
-        <ul class="custom-scrollbar">
-          <!-- Logo -->
-          <li>
-            <div class="logo-wrapper waves-light">
-              <a href="#"><img src="{% static 'img/logo.png' %}" class="img-fluid flex-center"></a>
-            </div>
-          </li>
-          <!--/. Logo -->
-          <!--Social-->
-          <li>
-            <ul class="social">
-              <li><a href="#" class="icons-sm fb-ic"><i class="fab fa-facebook-f"> </i></a></li>
-              <li><a href="#" class="icons-sm pin-ic"><i class="fab fa-pinterest"> </i></a></li>
-              <li><a href="#" class="icons-sm gplus-ic"><i class="fab fa-google-plus-g"> </i></a></li>
-              <li><a href="#" class="icons-sm tw-ic"><i class="fab fa-twitter"> </i></a></li>
-            </ul>
-          </li>
-          <!--/Social-->
-          <!--Search Form-->
-          <li>
-            <form class="search-form" role="search" action="{% url 'search_project' %}">
-              <div class="form-group md-form mt-0 pt-1 waves-light">
-                <input type="text" class="form-control" placeholder="Search Inspirations">
-              </div>
-            </form>
-          </li>
-          <!--/.Search Form-->
-          <!-- Side navigation links -->
-          <li>
-            <ul class="collapsible collapsible-accordion">
-              <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i> Submit
-                  blog<i class="fas fa-angle-down rotate-icon"></i></a>
-                <div class="collapsible-body">
-                  <ul>
-                    <li><a href="#" class="waves-effect">Submit listing</a>
-                    </li>
-                    <li><a href="#" class="waves-effect">Registration form</a>
-                    </li>
-                  </ul>
+        <!-- BOX ICONS CSS-->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+        <title>Awwwards</title>
+    </head>
+    <body id="body">
+        <div class="l-navbar" id="navbar">
+            <nav class="nav">
+                <div>
+                    <a href="#" class="nav__logo">
+                        <img src="/awardsapp/static/img/logo.png" alt="" class="nav__logo-icon">
+                        <span class="nav__logo-text">Awwwards</span>
+                    </a>
+    
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class='bx bx-chevron-right'></i>
+                    </div>
+    
+                    <ul class="nav__list">
+                        <a href="#" class="nav__link active">
+                            <i class='bx bx-grid-alt nav__icon'></i>
+                            <span class="nav__text">Home</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class='bx bx-user nav__icon' ></i>
+                            <span class="nav__text">User</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class='bx bx-bell nav__icon' ></i>
+                            <span class="nav__text">Notification</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class='bx bx-heart nav__icon'></i>
+                            <span class="nav__text">Favorites</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class='bx bx-bookmark nav__icon'></i>
+                            <span class="nav__text">Saved</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class='bx bx-message-rounded nav__icon' ></i>
+                            <span class="nav__text">Chat</span>
+                        </a>                 
+                    </ul>
                 </div>
-              </li>
-              <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-hand-point-up"></i>
-                  Instruction<i class="fas fa-angle-down rotate-icon"></i></a>
-                <div class="collapsible-body">
-                  <ul>
-                    <li><a href="#" class="waves-effect">For bloggers</a>
-                    </li>
-                    <li><a href="#" class="waves-effect">For authors</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-eye"></i> About<i class="fas fa-angle-down rotate-icon"></i></a>
-                <div class="collapsible-body">
-                  <ul>
-                    <li><a href="#" class="waves-effect">Introduction</a>
-                    </li>
-                    <li><a href="#" class="waves-effect">Monthly meetings</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-envelope"></i> Contact me<i
-                    class="fas fa-angle-down rotate-icon"></i></a>
-                <div class="collapsible-body">
-                  <ul>
-                    <li><a href="#" class="waves-effect">FAQ</a>
-                    </li>
-                    <li><a href="#" class="waves-effect">Write a message</a>
-                    </li>
-                    <li><a href="#" class="waves-effect">FAQ</a>
-                    </li>
-                    <li><a href="#" class="waves-effect">Write a message</a>
-                    </li>
-                    <li><a href="#" class="waves-effect">FAQ</a>
-                    </li>
-                    <li><a href="#" class="waves-effect">Write a message</a>
-                    </li>
-                    <li><a href="#" class="waves-effect">FAQ</a>
-                    </li>
-                    <li><a href="#" class="waves-effect">Write a message</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <!--/. Side navigation links -->
-        </ul>
-        <div class="sidenav-bg mask-strong"></div>
-      </div>
-      <!--/. Sidebar navigation -->
-      <!-- Navbar -->
-      <nav class="navbar navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
-        <!-- SideNav slide-out button -->
-        <div class="float-left">
-          <a href="#" data-activates="slide-out" class="button-collapse"><i class="fas fa-bars"></i></a>
+                <a href="#" class="nav__link">           
+                    <i class='bx bx-log-out-circle nav__icon'></i>
+                    <span class="nav__text">Close</span>
+                </a>
+            </nav>
         </div>
-        <!-- Breadcrumb-->
-        <div class="breadcrumb-dn mr-auto">
-          <p>Material Design for Bootstrap</p>
-        </div>
-        <ul class="nav navbar-nav nav-flex-icons ml-auto">
-          <li class="nav-item">
-            <a class="nav-link"><i class="fas fa-envelope"></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"><i class="far fa-comments"></i> <span class="clearfix d-none d-sm-inline-block">Support</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/profile/{{request.user.id}}"><i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Account</span></a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.Navbar -->
-    </header>
-    <!--/.Double navigation-->
-
-    <!-- JQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Bootstrap tooltips -->
-   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-   <!-- Bootstrap core JavaScript -->
-   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-   <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
- </body> 
- </html>
+        <h2>Unete al canal</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Atque optio odio officiis nostrum nesciunt quam libero. 
+            Cumque impedit veritatis, quibusdam nulla accusantium illo. 
+            In velit laboriosam obcaecati quaerat eaque beatae.</p>
+    </body>
+    <!-- MAIN JS -->
+    <script src="/awardsapp/static/js/main.js"></script>
+</html>
