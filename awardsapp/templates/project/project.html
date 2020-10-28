@@ -37,6 +37,7 @@
         <button type="button" class="btn purple-gradient"><i class="fas fa-heart pr-2" aria-hidden="true"></i>Rate Now</button>
       </a>
       {% endif %}
+
   
     </div>
   
@@ -84,8 +85,7 @@
             <p class="usability-vote">{{vote.usability | floatformat:0}}</p>
           </div>
 
-          {% else %}
-          <div class="text-center have-already">No votes yet</div>
+          
     
          {% endfor %}
         </div>

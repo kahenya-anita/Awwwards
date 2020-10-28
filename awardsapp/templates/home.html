@@ -6,6 +6,18 @@
 {% endblock %}
 
 {% block content %}
+<div class="col-12 col-md-3 dont-move">
+            <form  role="search" action="{% url 'search_project' %}" >
+            {% csrf_token %}
+                <div class="search-container">
+                    <div class="search">
+                    <input required name="project" type="text" id="zip-code-input" placeholder="Search Project">
+                    <button type="submit" style="border:0; background: transparent;"><i class="fa fa-search"></i> </button> </a>
+                </form>
+              </div>
+            </div>
+
+
 {% if projects %}
 <div class="submissions-wrapper">
 	{% for project in projects %}

@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .forms import CreateProfileForm, CreateUserForm
@@ -15,7 +15,6 @@ from django.contrib.auth.models import User
 from .models import Profile, Project, Vote
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth import logout as django_logout
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
 @unauthenticated_user
@@ -39,7 +38,7 @@ def loginPage(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('create_profile')
         else:
             messages.info(request, 'Username or Password is incorrect for user - ' + username)
     context = {}
@@ -74,7 +73,7 @@ def email(request):
     send_signup_email(name, email)
     return redirect(create_profile)
 
-@login_required(login_url='registration/login/')
+@login_required
 def home(request):
     title= "aWWWards"
     date = dt.date.today()
@@ -94,7 +93,7 @@ def home(request):
 def profile(request, username):
     title = "aWWWards"
     try:
-        user = User.objects.get(User , username = username)
+        user = get_object_or_404(User,username = username)
         profile = Profile.objects.get(user = user)
         title = profile.user.username
         projects = Project.get_user_projects(profile.id)
@@ -110,7 +109,7 @@ def profile(request, username):
         raise Http404()        
     return render(request, "user/profile.html", {"profile": profile, "projects": projects, "count": projects_count, "votes": total_votes, "average": average, "title": title})
 
-@login_required(login_url='registration/login/')
+@login_required
 def project(request, project_id):
     form = RateProjectForm()
     project = Project.objects.get(pk=project_id)
@@ -164,7 +163,7 @@ def project(request, project_id):
 
     return render(request, 'project/project.html', {"title": title, "form": form, "project": project, "votes": votes, "voted": voted, "total_votes":total_votes})
 
-@login_required(login_url='registration/login/')
+@login_required
 def add_project(request):
     title = "Add a project"
     if request.method == "POST":
@@ -183,7 +182,7 @@ def add_project(request):
         form = AddProjectForm()
     return render(request, 'project/add_project.html', {"form": form, "title":title})
 
-@login_required(login_url='registration/login/')
+@login_required
 def rate_project(request,project_id):
     if request.method == "POST":
         form = RateProjectForm(request.POST)
@@ -205,40 +204,13 @@ def rate_project(request,project_id):
         form = RateProjectForm()
     return render(request, 'project/project.html', {"form": form})
 
-@login_required(login_url='registration/login/')
+@login_required
 def search_project(request):
     if "project" in request.GET and request.GET["project"]:
-        searched_project = request.GET.get("project")
-        title = "aWWWards | search"
-        voted = False
-        try:
-            projects = Project.search_project(searched_project)
-            count = projects.count()
-            message =f"{searched_project}"
-            if len(projects) == 1:
-                project = projects[0]
-                form = RateProjectForm()
-                title = project.name.upper()
-                votes = Vote.get_project_votes(project.id)
-                voters = project.voters
-                
-                for vote in votes:
-                    try:
-                        user = User.objects.get(pk = request.user.id)
-                        profile = Profile.objects.get(user = user)
-                        voter = Vote.get_project_voters(profile)
-                        voted = False
-                        if request.user.id in voters_list: 
-                            voted = True
-                    except Profile.DoesNotExist:
-                        voted = False
-                return render(request, 'project/project.html', {"form": form, "project": project, "voted": voted, "votes": votes, "title": title})
-            return render(request, 'project/search.html', {"projects": projects,"message": message, "count":count, "title": title})
-        except ObjectDoesNotExist:
-            suggestions = Project.display_all_projects()
-            message= f"Found NO projects titled {searched_project}"
-            return render(request, 'project/search.html', {"suggestions":suggestions,"message": message, "title": title})
+        search_term = request.GET.get("project")
+        searched_projects = Project.search_projects(search_term)
+        message = f"{search_term}"
+        return render(request, 'search.html',{"message":message, "post":searched_projects})
     else:
-        message = "You haven't searched for any term"
-        return render(request,'project/search.html', {"message": message, "title": title})
-
+        message = "You haven't searched for any project"
+        return render(request, 'search.html',{"message":message})    

@@ -28,6 +28,7 @@ class Profile(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length = 30)
+    title = models.CharField(max_length = 20)
     screenshot = CloudinaryField('Project screenshot')
     description = models.TextField()
     link = models.URLField()
@@ -55,10 +56,11 @@ class Project(models.Model):
     def display_all_projects(cls):
         return cls.objects.all()
 
-    @classmethod 
-    def search_project(cls,name):
-        return Project.objects.filter(name__icontains = name)
-
+    @classmethod
+    def search_projects(cls,search_term):
+        posts = Project.objects.filter(title__icontains=search_term)
+        return posts
+    
     @classmethod
     def get_user_projects(cls,profile):
         return cls.objects.filter(profile=profile)
