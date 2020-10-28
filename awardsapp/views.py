@@ -14,10 +14,11 @@ import statistics
 from django.contrib.auth.models import User
 from .models import Profile, Project, Vote
 from .forms import *
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth import logout as django_logout
+from .decorators import unauthenticated_user, allowed_users, admin_only
 
-
+@unauthenticated_user
 def registerPage(request):
     form = CreateUserForm()
     if request.method == 'POST':
@@ -30,6 +31,7 @@ def registerPage(request):
     context = {'form':form}
     return render(request , 'registration/registration_form.html', context)
 
+@unauthenticated_user
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -43,10 +45,12 @@ def loginPage(request):
     context = {}
     return render(request, 'registration/login.html', context)
 
-@login_required
-def logout(request):
-    django_logout(request)
-    return  HttpResponseRedirect('/')
+
+@login_required(login_url='login')
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
 
 def create_profile(request):
     current_user = request.user
@@ -70,7 +74,7 @@ def email(request):
     send_signup_email(name, email)
     return redirect(create_profile)
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='registration/login/')
 def home(request):
     title= "aWWWards"
     date = dt.date.today()
@@ -86,7 +90,7 @@ def home(request):
     return render(request, "home.html", {"date": date, "title": title, "projects": projects, "highest":highest_score, "votes": highest_votes})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='registration/login/')
 def profile(request, username):
     title = "aWWWards"
     try:
@@ -106,7 +110,7 @@ def profile(request, username):
         raise Http404()        
     return render(request, "user/profile.html", {"profile": profile, "projects": projects, "count": projects_count, "votes": total_votes, "average": average, "title": title})
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='registration/login/')
 def project(request, project_id):
     form = RateProjectForm()
     project = Project.objects.get(pk=project_id)
@@ -160,7 +164,7 @@ def project(request, project_id):
 
     return render(request, 'project/project.html', {"title": title, "form": form, "project": project, "votes": votes, "voted": voted, "total_votes":total_votes})
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='registration/login/')
 def add_project(request):
     title = "Add a project"
     if request.method == "POST":
@@ -179,7 +183,7 @@ def add_project(request):
         form = AddProjectForm()
     return render(request, 'project/add_project.html', {"form": form, "title":title})
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='registration/login/')
 def rate_project(request,project_id):
     if request.method == "POST":
         form = RateProjectForm(request.POST)
@@ -201,7 +205,7 @@ def rate_project(request,project_id):
         form = RateProjectForm()
     return render(request, 'project/project.html', {"form": form})
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='registration/login/')
 def search_project(request):
     if "project" in request.GET and request.GET["project"]:
         searched_project = request.GET.get("project")
