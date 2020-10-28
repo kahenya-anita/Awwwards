@@ -96,7 +96,7 @@ def profile(request, username):
         user = get_object_or_404(User,username = username)
         profile = Profile.objects.get(user = user)
         title = profile.user.username
-        projects = Project.get_user_projects(profile.id)
+        projects = Project.objects.filter(profile = profile)
         projects_count = projects.count()
         votes= []
         for project in projects:
@@ -210,7 +210,7 @@ def search_project(request):
         search_term = request.GET.get("project")
         searched_projects = Project.search_projects(search_term)
         message = f"{search_term}"
-        return render(request, 'search.html',{"message":message, "post":searched_projects})
+        return render(request, 'project/search.html',{"message":message, "post":searched_projects})
     else:
         message = "You haven't searched for any project"
-        return render(request, 'search.html',{"message":message})    
+        return render(request, 'project/search.html',{"message":message})    

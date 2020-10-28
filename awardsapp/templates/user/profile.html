@@ -17,4 +17,28 @@
     </div>
 </div>
 
+{% for items in project %}
+<!-- Card -->
+<div class="card">
+
+  <!-- Card image -->
+  <img class="card-img-top" src="{{items.image.urls}}" alt="Card image cap">
+
+  <!-- Card content -->
+  <div class="card-body">
+
+    <!-- Title -->
+    <h4 class="card-title"><a>{{items.title}}</a></h4>
+    <!-- Text -->
+    <p class="card-text">{{items.description}}
+      </p>
+    <!-- Button -->
+    <a href="#" class="btn btn-primary">Button</a>
+
+  </div>
+
+</div>
+<!-- Card -->
+{% endfor %}
+
 {% endblock %}

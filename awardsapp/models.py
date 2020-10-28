@@ -27,6 +27,7 @@ class Profile(models.Model):
         self.save()
 
 class Project(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
     name = models.CharField(max_length = 30)
     title = models.CharField(max_length = 20)
     screenshot = CloudinaryField('Project screenshot')
