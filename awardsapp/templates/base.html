@@ -1,3 +1,4 @@
+{% load cloudinary %}
 {% load bootstrap4 %}
 {% load static%}
 <!DOCTYPE html>
@@ -12,7 +13,7 @@
     {% endif %}
 
     {% block styles %}
-    {% bootstrap_css %}
+  
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Google Fonts -->
@@ -22,7 +23,7 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css" rel="stylesheet">
     <link rel="favicon icon" href="{% static 'img/logo.png'%}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+   
     {% endblock %}
 </head>
 <body>
@@ -31,8 +32,8 @@
   {%endblock%}
 
   {% block scripts %}
-  {% bootstrap_javascript %}
-  <script src=" {% static 'js/app.js' %}"></script>
+
+  
   <!-- JQuery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- Bootstrap tooltips -->
@@ -41,6 +42,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+  <script src=" {% static 'js/app.js' %}"></script>
   {% endblock %}
 </body>
 </html>

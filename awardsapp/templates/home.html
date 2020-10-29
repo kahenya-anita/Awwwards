@@ -1,69 +1,64 @@
 {% extends 'base.html'%}
+{% load cloudinary %}
 {% load static %}
 {% block styles %}
+<link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
 {{ block.super}}
 <link rel="stylesheet" href="{% static 'css/main.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="col-12 col-md-3 dont-move">
-            <form  role="search" action="{% url 'search_project' %}" >
-            {% csrf_token %}
-                <div class="search-container">
-                    <div class="search">
-                    <input required name="project" type="text" id="zip-code-input" placeholder="Search Project">
-                    <button type="submit" style="border:0; background: transparent;"><i class="fa fa-search"></i> </button> </a>
-                </form>
-              </div>
-            </div>
+<!-- Jumbotron -->
+<div class="card card-image" style="background-image: url('{{ first.screenshot.url }}'); background-repeat: no-repeat; background-position: center;background-size: cover;">
+  <div class="text-white text-center rgba-stylish-strong py-5 px-4">
+    <div class="py-5">
 
+      <!-- Content -->
+      <h5 class="h5 orange-text"><i class="fas fa-camera-retro"></i>By {{first.profile.user.username}} </h5>
+      <h2 class="card-title h2 my-4 py-2">{{first.title}}</h2>
+      <p class="mb-4 pb-2 px-md-5 mx-md-5">{{first.description}}</p>
+      <a class="btn peach-gradient" href="{% url 'project' first.id %}" > View project</a>
+
+    </div>
+  </div>
+</div>
+<!-- Jumbotron -->
 
 {% if projects %}
-<div class="submissions-wrapper">
-	{% for project in projects %}
-	<div class="col-md-4">
-       <!-- Card Dark -->
-    <div class="card">
-
-    <!-- Card image -->
-    <div class="view overlay">
-        <a href="{% url 'project' project.id %}"><img class="card-img-top" src="{{project.screenshot.url}}"
-        alt="Card image cap">
-        </a>
-        <div class="mask rgba-white-slight"></div>
-      </a>
-    </div>
-  
-    <!-- Card content -->
-    <div class="card-body elegant-color white-text rounded-bottom">
-  
-      <!-- Social shares button -->
-      <a class="activator waves-effect mr-4" href="{{project.link}}" ><i class="fas fa-share-alt white-text"></i></a>
-      <!-- Title -->
-      <h4 class="card-title"><a href="{% url 'project' project.id %}">{{project.name}}</a></h4>
-      <time>{{project.post_date}}</time>
-      <hr class="hr-light">
-      <!-- Text -->
-      <p class="card-text white-text mb-4">{{project.description}}
-        </p>
-      <!-- Link -->
-      <a href="{% url 'project' project.id %}" class="white-text d-flex justify-content-end">
-        <h5>Rate Project <i class="fas fa-angle-double-right"></i></h5>
-      </a>
-      <div class="card__action">
-        <div class="card__author">
-            <img src="{{project.profile.profile_pic.url}}" alt="user">
-            <div class="card__author-content">
-                By <a href="{% url 'profile' project.profile.user.id %}">{{project.profile.user.username}}</a>
-            </div>
+<div class="container">
+  <div class="row">
+  {% for project in projects %}
+  <div class="col-sm-4">
+  <div class="card">
+    <div class="card-header">
+        <div class="avatar">
+            <img src="{{project.profile.profile_pic.url}}" class="avatar">
         </div>
+        <div class="name text-dark">{{project.name}}</div>
+        <div class="date">Posted on {{project.post_date}}</div>
     </div>
-  
+    <div class="card-content p-2 orange-text">
+      {{project.description}}
+    </div>
+    <div class="card-content">
+      <a href="{% url 'project' project.id %}"><img src="{{project.screenshot.url}}" style="width: 100%"></a>
+    </div>
+    <div class="card-content fg-gray p-2">
+        <span><small>Likes: </small>23</span>
+        <span><small>comments: </small>5</span>
+    </div>
+    <div class="card-footer">
+        <button class="flat-button mif-thumbs-up mif-2x" href="{% url 'project' project.id %}"></button>
+        <button class="flat-button mif-tag mif-2x"></button>
+        <button class="flat-button mif-share mif-2x" href="{{project.link}}"></button>
+    </div>
+    </div>
     </div>
     {% endfor %}
   </div>
- </div>
 </div>
-  <!-- Card Dark --> 
+{% block scripts %}
+<script src="https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"></script>
+{% endblock %}
   {% endif %}
   {% endblock content %}

@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.shortcuts import render,redirect, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from .serializer import ProjectSerializer,ProfileSerializer
 from .forms import CreateProfileForm, CreateUserForm
 import datetime as dt
 import statistics
@@ -38,7 +39,7 @@ def loginPage(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('create_profile')
+            return redirect('/')
         else:
             messages.info(request, 'Username or Password is incorrect for user - ' + username)
     context = {}
@@ -77,6 +78,7 @@ def email(request):
 def home(request):
     title= "aWWWards"
     date = dt.date.today()
+    first = Project.objects.order_by('?').first()
     projects = Project.display_all_projects()
     projects_scores = projects.order_by('-average_score')
     highest_score = None
@@ -86,7 +88,7 @@ def home(request):
         votes = Vote.get_project_votes(highest_score.id)
         highest_votes = votes[:3]    
         
-    return render(request, "home.html", {"date": date, "title": title, "projects": projects, "highest":highest_score, "votes": highest_votes})
+    return render(request, "home.html", {"date": date, "first": first, "title": title, "projects": projects, "highest":highest_score, "votes": highest_votes})
 
 
 @login_required(login_url='registration/login/')
@@ -96,7 +98,7 @@ def profile(request, username):
         user = get_object_or_404(User,username = username)
         profile = Profile.objects.get(user = user)
         title = profile.user.username
-        projects = Project.objects.filter(profile = profile)
+        projects = Project.objects.filter(user = user)
         projects_count = projects.count()
         votes= []
         for project in projects:
@@ -207,10 +209,48 @@ def rate_project(request,project_id):
 @login_required
 def search_project(request):
     if "project" in request.GET and request.GET["project"]:
-        search_term = request.GET.get("project")
-        searched_projects = Project.search_projects(search_term)
-        message = f"{search_term}"
-        return render(request, 'project/search.html',{"message":message, "post":searched_projects})
+        searched_project = request.GET.get("project")
+        title = "aWWWards | search"
+        voted = False
+        try:
+            projects = Project.search_project(searched_project)
+            count = projects.count()
+            message =f"{searched_project}"
+            if len(projects) == 1:
+                project = projects[0]
+                form = RateProjectForm()
+                title = project.name.upper()
+                votes = Vote.get_project_votes(project.id)
+                voters = project.voters
+                
+                for vote in votes:
+                    try:
+                        user = User.objects.get(pk = request.user.id)
+                        profile = Profile.objects.get(user = user)
+                        voter = Vote.get_project_voters(profile)
+                        voted = False
+                        if request.user.id in voters_list: 
+                            voted = True
+                    except Profile.DoesNotExist:
+                        voted = False
+                return render(request, 'project/project.html', {"form": form, "project": project, "voted": voted, "votes": votes, "title": title})
+            return render(request, 'project/search.html', {"projects": projects,"message": message, "count":count, "title": title})
+        except ObjectDoesNotExist:
+            suggestions = Project.display_all_projects()
+            message= f"Found NO projects titled {searched_project}"
+            return render(request, 'project/search.html', {"suggestions":suggestions,"message": message, "title": title})
     else:
-        message = "You haven't searched for any project"
-        return render(request, 'project/search.html',{"message":message})    
+        message = "You haven't searched for any term"
+        return render(request,'project/search.html', {"message": message, "title": title})
+
+class ProjectList(APIView):
+    def get(self,request,format = None):
+        projects =  Project.objects.all()
+        serializers = ProjectSerializer(projects, many=True)
+        return Response(serializers.data)  
+
+class ProfileList(APIView):
+    def get(self,request,format = None):
+        profiles =  Profile.objects.all()
+        serializers = ProfileSerializer(profiles, many=True)
+        return Response(serializers.data) 

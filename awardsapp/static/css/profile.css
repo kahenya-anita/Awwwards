@@ -1,4 +1,4 @@
-body {
+/* body {
     padding-top: 12rem;
     padding-bottom: 4rem;
 }
@@ -88,7 +88,7 @@ label>span {
     font-size: 1.4rem;
 }
 
-/* SUBMISSIONS */
+/* SUBMISSIONS 
 @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
 @import 'https://fonts.googleapis.com/css?family=Roboto:700,400';
 .submissions-wrapper {
@@ -118,12 +118,12 @@ h3 {
 
 .submission {
     max-width: 50%;
-    /* margin: 50px auto; */
+    /* margin: 50px auto; 
     padding-left: 1em;
     padding-right: 1em;
 }
 
-/* Helpers*/
+
 .border-tlr-radius {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
@@ -148,7 +148,7 @@ h3 {
         0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-/* Card Styles*/
+
 
 .card {
     background-color: #fff;
@@ -177,7 +177,7 @@ h3 {
     position: relative;
 }
 
-/* card meta */
+
 .card__meta a{
     margin-right: 0.8rem;
 }
@@ -187,7 +187,7 @@ h3 {
     color: #bbb;
 }
 
-/* card article */
+
 .card__article a {
     text-decoration: none;
     text-transform: capitalize;
@@ -201,7 +201,7 @@ h3 {
 .card__article p{
     font-size: 1.2rem;
 }
-/* card action */
+
 .card__action {
     overflow: hidden;
     padding-right: 1.6rem;
@@ -258,4 +258,68 @@ h3 {
     -ms-transform: scale(1.2);
     -o-transform: scale(1.2);
     transform: scale(1.2);
-}
+} */
+
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+  *:before,
+  *:after {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+  button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+  }
+  button :hover{
+    border: none;
+  }
+  .account-img {
+    height: 150px;
+    width: 150px;
+    margin-right: 90px;
+    margin-left: 75px;
+    margin-bottom: 16px;
+  }
+  .account-heading{
+    display: flex;
+    flex-direction: row;
+    margin: 0px 0px 20px;
+  }
+  .account-heading h2{
+    color: #262626;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 32px;
+    margin: -5px 0 -6px;
+    padding-right: 15px; 
+  }
+  .profile_media{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 320px;
+    margin: 0px 0px 20px;
+  }
+  .profile_media a{
+    text-decoration: none;
+    color: #262626;
+  }
+  .profilename p{
+    padding: 0px;
+    margin: 0px !important;
+  }
+  .profile_page{
+    max-width: 935px;
+    margin: 0 auto 30px;
+    padding: 60px 20px 0px;
+    box-sizing: content-box;
+  }

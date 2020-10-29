@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'awardsapp.apps.AwardsappConfig',
     'rest_framework',
     'bootstrap4',
+    'cloudinary',
 ]
 cloudinary.config(
     cloud_name = 'dsoltjf12',

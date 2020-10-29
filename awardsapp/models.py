@@ -27,7 +27,7 @@ class Profile(models.Model):
         self.save()
 
 class Project(models.Model):
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
     name = models.CharField(max_length = 30)
     title = models.CharField(max_length = 20)
     screenshot = CloudinaryField('Project screenshot')
@@ -57,10 +57,9 @@ class Project(models.Model):
     def display_all_projects(cls):
         return cls.objects.all()
 
-    @classmethod
-    def search_projects(cls,search_term):
-        posts = Project.objects.filter(title__icontains=search_term)
-        return posts
+    @classmethod 
+    def search_project(cls,name):
+        return Project.objects.filter(name__icontains = name)
     
     @classmethod
     def get_user_projects(cls,profile):

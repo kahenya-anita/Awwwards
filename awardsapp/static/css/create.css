@@ -7,12 +7,13 @@ body {
 }
 
 .box {
-    background: rgb(91, 228, 216);
+    background-image: '/awardsapp/static/img/img1.jpg';
+    background-color: rgb(231, 33, 231);
     border-radius: 0.625rem;
     display: flex;
     flex-direction: column;
     width: 65%;
-    color: #fff;
+    color: rgb(39, 38, 38);
     padding: 2%;
     margin-bottom: 3%;
 }

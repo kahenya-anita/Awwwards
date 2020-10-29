@@ -1,28 +1,18 @@
-// SHOW MENU
-const showMenu = (toggleId, navbarId,bodyId) =>{
-    const toggle = document.getElementById(toggleId),
-    navbar = document.getElementById(navbarId),
-    bodypadding = document.getElementById(bodyId)
+const sideNav = document.getElementById("side-nav");
 
-    if(toggle && navbar){
-        toggle.addEventListener('click', ()=>{
-            // APARECER MENU
-            navbar.classList.toggle('show')
-            // ROTATE TOGGLE
-            toggle.classList.toggle('rotate')
-            // PADDING BODY
-            bodypadding.classList.toggle('expander')
-        })
-    }
-}
-showMenu('nav-toggle','navbar','body')
+const overlay = document.getElementById("overlay");
 
-// LINK ACTIVE COLOR
-const linkColor = document.querySelectorAll('.nav__link');   
-function colorLink(){
-    linkColor.forEach(l => l.classList.remove('active'));
-    this.classList.add('active');
+const banner = document.getElementById("banner");
+
+function openNav() {
+  sideNav.style.width = "250px";
+  overlay.style.display = "block";
+  banner.style.marginLeft = "250px";
 }
 
-linkColor.forEach(l => l.addEventListener('click', colorLink));
+function closeNav() {
+  sideNav.style.width = "0";
+  overlay.style.display = "none";
+  banner.style.marginLeft = "0";
+}
 
