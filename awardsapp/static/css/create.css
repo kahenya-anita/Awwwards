@@ -31,7 +31,6 @@ hr {
 }
 
 .guide {
-    /* width: 50%; */
     padding: 2% 15%;
     font-size: 1.5rem;
 }
@@ -47,7 +46,7 @@ label {
 .form-control {
     border-bottom: 1px solid #ccc;
     background-color: transparent;
-    color: #fff;
+    color: rgb(39, 38, 38);
 }
 
 .form-control:focus {

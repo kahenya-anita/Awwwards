@@ -71,7 +71,7 @@ body {
 }
 .d-flex span{
     font-size: 1.4rem;
-    /* padding-top: 0.8rem; */
+    
 }
 
 
@@ -186,7 +186,7 @@ label {
 .form-control {
     border-bottom: 1px solid #ccc;
     background-color: transparent;
-    color: #fff;
+    color: rgb(61, 59, 59);
 }
 
 .form-control:focus {
