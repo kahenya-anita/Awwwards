@@ -3,11 +3,11 @@
 ### Author : ANITA KAHENYA 28th Oct 2020
 ****
 ## Project Description
-This is a socila media app which requires a user to register and login to use. A user can post projects with description of the project. The project can be reviews and rated by their peers and friends alike. A user can also follow or unfollow other users. Users can also access contact info of users on their profile page and see there contact information. The app also contains two end points for user profiles and projects.
+This is a social media app which requires a user to register and login to use. A user can post projects with description of the project. The project can be reviews and rated by their peers and friends alike. A user can also follow or unfollow other users. Users can also access contact info of users on their profile page and see there contact information. The app also contains two end points for user profiles and projects.
 ******
 ## API-Endpoints
 ### User Profiles
-[https://coding-awwards.herokuapp.com/api/user_profiles](https://coding-awwards.herokuapp.com/api/user_profiles)
+[https://anita-awards.herokuapp.com/registration/login/?next=/](https://anita-awards.herokuapp.com/create_profile/)
 * This endpoint return all the user profiles with information such:
 
 1. Username
@@ -19,7 +19,7 @@ This is a socila media app which requires a user to register and login to use. A
 7. URL
 
 ### Project Posted
-[https://coding-awwards.herokuapp.com/api/projects](https://coding-awwards.herokuapp.com/api/projects)
+[https://anita-awards.herokuapp.com/](https://anita-awards.herokuapp.com/)
 * This endpoint return information pertaining to all the projects posted in the application such as:
 1. Project Screenshots
 2. Project Name
@@ -51,7 +51,7 @@ To install all requirements
 Then run server with the above command
 *****
 ## Live Link
-Or you can access the web application directly via this [LINK.](/)
+Or you can access the web application directly via this [LINK.](https://anita-awards.herokuapp.com/registration/login/?next=/)
 *****
 ## Dependencies
 Django-Heroku
