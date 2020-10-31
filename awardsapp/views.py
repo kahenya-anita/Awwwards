@@ -74,7 +74,7 @@ def email(request):
     send_signup_email(name, email)
     return redirect(create_profile)
 
-@login_required
+@login_required(login_url='registration/login/')
 def home(request):
     title= "aWWWards"
     date = dt.date.today()
