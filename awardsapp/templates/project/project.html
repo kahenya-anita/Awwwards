@@ -37,14 +37,14 @@
     <div id="Votes" class="tabcontent">
         {% if votes %}
         <div class="vote-titles">
-            <img src="" alt="voter" class="invisible">
+            <img src="" alt="voter" class="invisible" style="color: black;">
             <p class="voter-name"></p>
             <p class="vote-title ">Content</p>
             <p class="vote-title ">Design</p>
             <p class="vote-title ">Usability</p>
         </div>
         {% for vote in votes%}
-        <div class="vote-details">
+        <div class="vote-details" style="color: black;">
             <img src="{{vote.voter.profile_pic.url}}" alt="voter" class="voter-image">
             <p class="voter-name">{{vote.voter.user.username}}</p>
             <p class="content-vote">{{vote.content | floatformat:0}}</p>
