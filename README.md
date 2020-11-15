@@ -1,118 +1,83 @@
-# Awwwards Clone
+# AWWWARDS
+*****
+### Author : ANITA KAHENYA 28th Oct 2020
+****
+## Project Description
+This is a social media app which requires a user to register and login to use. A user can post projects with description of the project. The project can be reviews and rated by their peers and friends alike. A user can also follow or unfollow other users. Users can also access contact info of users on their profile page and see there contact information. The app also contains two end points for user profiles and projects.
+******
+## API-Endpoints
+### User Profiles
+[https://anita-awards.herokuapp.com/registration/login/?next=/](https://anita-awards.herokuapp.com/create_profile/)
+* This endpoint return all the user profiles with information such:
 
-## By BrysonMundia (https://github.com/Bryson69)😎 
+1. Username
+2. Bio
+3. User Project Posted
+4. Profile Picture
+5. Bio
+6. Location
+7. URL
 
-## Live Site [Awwwards](https://awwwarda123.herokuapp.com/) 
+### Project Posted
+[https://anita-awards.herokuapp.com/](https://anita-awards.herokuapp.com/)
+* This endpoint return information pertaining to all the projects posted in the application such as:
+1. Project Screenshots
+2. Project Name
+3. Description
+4. Date Posted
+5. Upvotes
+********
+## SetUp Instruction
+### Requirements
+* [Python 3](https://www.python.org/downloads/)
+* [Django](https://www.djangoproject.com/)
+* Text editor eg [Visual Studio Code](https://code.visualstudio.com/download)
+* [Postman](https://www.postman.com/downloads/)
+### Getting Files
+* Fork the repo
+- Create a new branch in your terminal (git checkout -b improve-feature)
+- Install the prerequisites
+- Make appropriate changes in file(s)
+- Run the server to see the changes
+- Add the changes and commit them (git commit -am "Improve App")
+- Push to the branch (git push origin improve-app)
+- Create a Pull request
+* Open the folder location on terminal and use the following command to run app:
 
-## Description
+> pip install -r requirements.txt
+To install all requirements
 
-A web application whereby you can view projects or pitched ideas by other people. A user can also vote on a project.
-
-### Here is a sneak peek on how it looks...
-
-![](screenshotss/img13.png)
-![](screenshotss/img3.png)
-
-### How It looks when a user is logged in
-
-![](screenshotss/img4.png)
-![](screenshotss/img5.png)
-![](screenshotss/img6.png)
-
-## User Stories
-
-* View posted projects and their details
-* Post a project to be rated/reviewed
-* Rate/ review other users' projects
-* Search for projects 
-* View projects overall score
-* View my profile page
-
-
-## Prerequisites
-* Python3.6
-
-## Setup and installations
-* Fork the data onto your own personal repository.
-* Clone Project to your machine
-* Activate a virtual environment on terminal: `source virtual/bin/activate`
-* Install all the requirements found in requirements file. `pip install -r requirements.txt`
-* Then ` python manage.py makemigrations` `python manage.py migrate`
-* On your terminal run `python3.6 manage.py runserver`
-* Access the live site using the local host provided
-
-#### Clone the Repo and rename it.
-```bash
-git clone (https://awwwarda123.herokuapp.com/)
-```
-#### Initialize git and add the remote repository
-```bash
-git init
-```
-```bash
-git remote add origin <your-repository-url>
-```
-
-#### Create and activate the virtual environment
-```bash
-python3.6 -m virtualenv virtual
-```
-
-```bash
-source virtual/bin/activate
-```
-
-#### Setting up environment variables
-Create a `.env` file and paste paste the following filling where appropriate:
-```
-SECRET_KEY='rdtfyguihjohucbdsjnc'
-DEBUG=True
-DB_NAME='tribune'
-DB_USER='<your database name>'
-DB_PASSWORD='<password to your database>'
-DB_HOST='127.0.0.1'
-MODE='dev'
-ALLOWED_HOSTS='.localhost', '.herokuapp.com', '.127.0.0.1'
-DISABLE_COLLECTSTATIC=1
-```
-
-#### Install dependancies
-Install dependancies that will create an environment for the app to run
-`pip install -r requirements.txt`
-
-#### Make and run migrations
-```bash
-python3.6 manage.py check
-python manage.py makemigrations <Name of application>
-python3.6 manage.py sqlmigrate <Name of application> 0001
-python3.6 manage.py migrate
-```
-
-#### Run the app
-```bash
-python3.6 manage.py runserver
-```
-Open [localhost:8000](http://127.0.0.1:8000/)
-
-# How it works
-* User needs to sign up.
-* Click on a project you want to view
-* If you like the project idea then you can vote for it . 
-
-# CREDITS
-##### Google.com ⭐️ StackOverflow.com ⭐️ &  Awwwards:star:.
-
-# Support and Contacts
-In case You have any issues using this code please do no hesitate to get in touch with me through brysonmundia@gmail.com or leave a comment here on Github.
-
-## Known Bugs
-None so far.
-
+> $ python3 manage.py runserver
+Then run server with the above command
+*****
+## Live Link
+Or you can access the web application directly via this [LINK.](https://anita-awards.herokuapp.com/registration/login/?next=/)
+*****
+## Dependencies
+Django-Heroku
+Python-Decouple
+Whitenoise
+pillow
+Django-Admin
+Django-Registration
+Django-UUIDField
+Dj-Database-Url
+Cloudinary
+Django-Rest-Framework
+*****
 ## Technologies Used
-- Python3.6
-- Django framework
-- Bootstrap
-- PostgreSQl
-
-### License
-**[MIT](./LICENSE)** (c) 2020 **[Bryson Mundia]()**
+Python 3
+MdBootstrap
+HTML
+CSS
+Django 3
+JavaScript
+Jquery
+*****
+## Contact Information
+Email : anitakahenya1@gmail.com
+Slack : Anita Kahenya
+*****
+## [License](LICENSE)
+MIT License
+Copyright (c) 2020 Anita Kahenya
