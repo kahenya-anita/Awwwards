@@ -19,8 +19,8 @@
       </li>
 
     </ul>
-    <a id="title" class="navbar-brand" style="position: center;" href="/">Awwards.</a>
-    {%if user.is_authenticated%}
+    <a id="title" class="navbar-brand" style="text-align: center;" href="/">Awwards.</a>
+    {% if user.is_authenticated %}
     <a style="color:black;padding:10px"  href="{%url 'profile'%}"><i class="far fa-user"></i>{{user}}</a>
       {%else%}
       <a class="login" href="/accounts/login/">Login/Register </a>
