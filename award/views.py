@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProjectSerializer,ProfileSerializer
+from django.contrib.auth import logout as django_logout
 
 # Create your views here.
 def index(request):
@@ -154,6 +155,11 @@ def apiView(request):
     title="Api"
     profis=Profile.objects.filter(user=current_user)[0:1]
     return render(request,'api.html',{"title":title,'profile':profis})
+
+@login_required
+def logout(request):
+    django_logout(request)
+    return  HttpResponseRedirect('/')
 
 
 class ProfileList(APIView):

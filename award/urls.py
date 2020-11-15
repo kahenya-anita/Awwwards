@@ -10,6 +10,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns=[
     url(r'^$',views.index, name='index'),
     url(r'project/post/$',views.post,name='post'),
+    url(r'logout/$',views.logout,name='logout'),
     url(r'^user/profile/$',views.profile,name='profile'),
     url(r'^project/(\d+)/',views.project_detail,name='details'),
     url(r'^search/projects/results/$',views.search,name="search"),
