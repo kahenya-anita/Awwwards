@@ -15,9 +15,10 @@ import cloudinary
 import django_heroku
 import dj_database_url
 from decouple import config,Csv
+
 MODE=config('MODE',default='dev')
 SECRET_KEY=config("SECRET_KEY")
-DEBUG=config("DEBUG",default=False,cast=bool)
+DEBUG=config("DEBUG",default=True,cast=bool)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -55,11 +56,17 @@ INSTALLED_APPS = [
     'cloudinary',
     'django.contrib.admin',
     'django.contrib.auth',
+    'registration',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+# Registration settings
+ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window
+REGISTRATION_OPEN = True  # Allow new registrations
+
 
 cloudinary.config(
     cloud_name = 'dsoltjf12',
@@ -163,6 +170,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 STATIC_URL = '/static/'

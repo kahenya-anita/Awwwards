@@ -1,5 +1,5 @@
 from . import views
-from django.conf.urls import url
+from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.authtoken.views import obtain_auth_token
@@ -8,17 +8,17 @@ from rest_framework.authtoken.views import obtain_auth_token
 #url urlpatterns
 
 urlpatterns=[
-    url(r'^$',views.index, name='index'),
-    url(r'project/post/$',views.post,name='post'),
-    url(r'logout/$',views.logout,name='logout'),
-    url(r'^user/profile/$',views.profile,name='profile'),
-    url(r'^project/(\d+)/',views.project_detail,name='details'),
-    url(r'^search/projects/results/$',views.search,name="search"),
-    # url(r'^ajax/review/(\d+)$',views.ajaxRequest,name='review'),
-    url(r'^api/projects/$',views.ProjectList.as_view()),
-    url(r'^api/profile/$',views.ProfileList.as_view()),
-    url(r'^token/', obtain_auth_token),
-    url(r'^developer/api/$',views.apiView,name='api'),
+    path('',views.index, name='index'),
+    path('project/post/',views.post,name='post'),
+    path('logout/',views.logout,name='logout'),
+    path('user/profile/',views.profile,name='profile'),
+    path('project/<int:project_id>/',views.project_detail,name='details'),
+    path('search/projects/results/',views.search,name="search"),
+    # path('ajax/review/<int:id>',views.ajaxRequest,name='review'),
+    path('api/projects/',views.ProjectList.as_view(), name='api-projects'),
+    path('api/profile/',views.ProfileList.as_view(), name='api-profile'),
+    path('token/', obtain_auth_token, name='token'),
+    path('developer/api/',views.apiView,name='api'),
 ]
 
 if settings.DEBUG:
