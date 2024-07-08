@@ -15,6 +15,11 @@ import cloudinary
 import django_heroku
 import dj_database_url
 from decouple import config,Csv
+from pathlib import Path
+
+
+from dotenv import load_dotenv
+
 
 MODE=config('MODE',default='dev')
 SECRET_KEY=config("SECRET_KEY")
@@ -56,7 +61,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'django.contrib.admin',
     'django.contrib.auth',
-    'registration',
+    'django_registration',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -109,27 +114,28 @@ WSGI_APPLICATION = 'Awards.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-if config('MODE')=='dev':
-
+if config('MODE', default='dev') == 'dev':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME':config('DB_NAME'),
-            'USER':config("DB_USER"),
-            'PASSWORD':config("DB_PASSWORD"),
-            'HOST':config("DB_HOST")
+            'NAME': config('DB_NAME'),
+            'USER': config('DB_USER'),
+            'PASSWORD': config('DB_PASSWORD'),
+            'HOST': config('DB_HOST'),
+            'PORT': config('PORT', default='5432'),
         }
     }
-
 else:
-    DATABASES={
-    'default':dj_database_url.config(
-    default=config('DATABASE_URL')
-    )
+    DATABASES = {
+        'default': dj_database_url.config(default=config('DATABASE_URI'))
     }
 
-db_from_evn=dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_evn)
+print("DEBUG:", DEBUG)
+print("MODE:", MODE)
+print("DATABASES:", DATABASES)
+
+# db_from_evn=dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_evn)
 ALLOWED_HOSTS=config('ALLOWED_HOSTS',cast=Csv)
 
 
